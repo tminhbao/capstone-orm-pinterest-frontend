@@ -25,3 +25,47 @@
     column-count: 2;
   }
 }
+
+// User is not logged in
+
+.login-content .colash__item:nth-child(1) {
+  transform: translateY(-19%);
+}
+.login-content .colash__item:nth-child(2) {
+  transform: translateY(-11%);
+}
+.login-content .colash__item:nth-child(1) {
+  transform: translateY(-19%);
+}
+.login-content .colash__item:nth-child(3) {
+  transform: translateY(-7%);
+}
+
+.login-content .colash__item:nth-child(5) {
+  transform: translateY(-7%);
+}
+.login-content .colash__item:nth-child(6) {
+  transform: translateY(-11%);
+}
+.login-content .colash__item:nth-child(7) {
+  transform: translateY(-19%);
+}
+
+.login-content .login-colash img {
+  height: 350px;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: 16px;
+}
+
+@media only screen and (max-width: 1600px) {
+  .login-content .login-colash img {
+    height: 320px;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .login-content .login-colash img {
+    height: 260px;
+  }
+}
