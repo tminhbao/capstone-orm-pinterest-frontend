@@ -5,14 +5,28 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import HomeLayout from "./components/HomeLayout/HomeLayout";
-import Header from "./components/Header/Header";
+import { createBrowserHistory } from "history";
+import {
+  Route,
+  Routes,
+  unstable_HistoryRouter as HistoryRouter,
+} from "react-router-dom";
+import HomeTemplate from "./components/templates/HomeTemplate";
+
+export const history: any = createBrowserHistory();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Header />
+    <HistoryRouter history={history}>
+      <Routes>
+        <Route path="/" element={<HomeTemplate />}>
+          <Route />
+        </Route>
+      </Routes>
+    </HistoryRouter>
     <HomeLayout />
   </React.StrictMode>
 );
