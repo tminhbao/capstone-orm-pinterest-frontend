@@ -23,11 +23,10 @@ root.render(
     <HistoryRouter history={history}>
       <Routes>
         <Route path="/" element={<HomeTemplate />}>
-          <Route />
+          <Route path="/" element={<HomeLayout />} />
         </Route>
       </Routes>
     </HistoryRouter>
-    <HomeLayout />
   </React.StrictMode>
 );
 
