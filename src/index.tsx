@@ -12,6 +12,7 @@ import {
   unstable_HistoryRouter as HistoryRouter,
 } from "react-router-dom";
 import HomeTemplate from "./components/templates/HomeTemplate";
+import ImageDetail from "./pages/ImageDetail/ImageDetail";
 
 export const history: any = createBrowserHistory();
 
@@ -24,6 +25,7 @@ root.render(
       <Routes>
         <Route path="/" element={<HomeTemplate />}>
           <Route path="/" element={<HomeLayout />} />
+          <Route path="/image/:imageId" element={<ImageDetail />} />
         </Route>
       </Routes>
     </HistoryRouter>
