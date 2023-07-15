@@ -3,6 +3,7 @@ import "./Header.css";
 import { Row, Col, Modal, Form, Input, Button } from "antd";
 import { BsPinterest } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
+import { NavLink } from "react-router-dom";
 
 type Props = {};
 
@@ -44,10 +45,13 @@ const Header = (props: Props) => {
       <header className="header my-3">
         <Row>
           <Col xs={10}>
-            <div className="d-flex align-items-center">
+            <NavLink
+              to="/"
+              className="d-flex align-items-center text-decoration-none"
+            >
               <BsPinterest className="fs-4 ms-3 mb-2 me-2 header__icon" />
               <h3 className="header__logo">Pinterest</h3>
-            </div>
+            </NavLink>
           </Col>
           <Col xs={7}>
             <div className="header__search">
