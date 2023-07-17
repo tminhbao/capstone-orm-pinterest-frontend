@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import HomeTemplate from "./components/templates/HomeTemplate";
 import ImageDetail from "./pages/ImageDetail/ImageDetail";
+import MyImage from "./pages/MyImage/MyImage";
 
 export const history: any = createBrowserHistory();
 
@@ -26,6 +27,7 @@ root.render(
         <Route path="/" element={<HomeTemplate />}>
           <Route path="/" element={<HomeLayout />} />
           <Route path="/image/:imageId" element={<ImageDetail />} />
+          <Route path="/my-images" element={<MyImage />} />
         </Route>
       </Routes>
     </HistoryRouter>
