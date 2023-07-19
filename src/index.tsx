@@ -14,6 +14,7 @@ import {
 import HomeTemplate from "./components/templates/HomeTemplate";
 import ImageDetail from "./pages/ImageDetail/ImageDetail";
 import MyImage from "./pages/MyImage/MyImage";
+import Profile from "./pages/Profile/Profile";
 
 export const history: any = createBrowserHistory();
 
@@ -28,6 +29,7 @@ root.render(
           <Route path="/" element={<HomeLayout />} />
           <Route path="/image/:imageId" element={<ImageDetail />} />
           <Route path="/my-images" element={<MyImage />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </HistoryRouter>

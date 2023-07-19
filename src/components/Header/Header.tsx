@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import "./Header.css";
-import { Row, Col, Modal, Form, Input, Button } from "antd";
+import { Row, Col, Modal, Form, Input, Button, Dropdown, Avatar } from "antd";
+import type { MenuProps } from "antd";
 import { BsPinterest } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
+import { AiFillBell, AiFillMessage, AiOutlinePlusCircle } from "react-icons/ai";
+import CreateImageModal from "../Modal/CreateImageModal/CreateImageModal";
 
 type Props = {};
 
 const Header = (props: Props) => {
+  const [isLogin, setIsLogin] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
+  const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -27,6 +32,14 @@ const Header = (props: Props) => {
     setIsModalRegisterOpen(false);
   };
 
+  const showModalCreate = () => {
+    setIsModalCreateOpen(true);
+  };
+
+  const handleCancelCreate = () => {
+    setIsModalCreateOpen(false);
+  };
+
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
@@ -40,6 +53,45 @@ const Header = (props: Props) => {
   const onFinishRegisterFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  const onFinishCreate = (values: any) => {
+    console.log("Success:", values);
+  };
+  const onFinishCreateFailed = (errorInfo: any) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.antgroup.com"
+        >
+          My Profile
+        </a>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.aliyun.com"
+        >
+          My Image
+        </a>
+      ),
+    },
+    {
+      key: "3",
+      label: <p className="text-danger mb-0"> Logout</p>,
+    },
+  ];
+
   return (
     <>
       <header className="header my-3">
@@ -60,15 +112,39 @@ const Header = (props: Props) => {
             </div>
           </Col>
           <Col xs={7}>
-            <nav className="header__menu">
-              <a>About</a>
-              <a>Business</a>
-              <a>Blog</a>
-              <button className="menu__button" onClick={showModal}>
-                Log in
-              </button>
-              <button onClick={showModalRegister}>Sign Up</button>
-            </nav>
+            {isLogin ? (
+              <nav className="header__menu">
+                <a onClick={(e: any) => setIsModalCreateOpen(true)}>
+                  <AiOutlinePlusCircle className="fs-3" />
+                </a>
+                <a>
+                  <AiFillBell className="fs-3" />
+                </a>
+                <a>
+                  <AiFillMessage className="fs-3" />
+                </a>
+                <a>
+                  <Dropdown
+                    menu={{
+                      items,
+                    }}
+                  >
+                    <Avatar />
+                  </Dropdown>
+                </a>
+              </nav>
+            ) : (
+              <nav className="header__menu">
+                <a>About</a>
+                <a>Business</a>
+                <a>Blog</a>
+
+                <button className="menu__button" onClick={showModal}>
+                  Log in
+                </button>
+                <button onClick={showModalRegister}>Sign Up</button>
+              </nav>
+            )}
           </Col>
         </Row>
       </header>
@@ -241,6 +317,11 @@ const Header = (props: Props) => {
           </Form>
         </Row>
       </Modal>
+
+      <CreateImageModal
+        open={isModalCreateOpen}
+        onCancel={handleCancelCreate}
+      />
     </>
   );
 };
