@@ -11,7 +11,7 @@ import CreateImageModal from "../Modal/CreateImageModal/CreateImageModal";
 type Props = {};
 
 const Header = (props: Props) => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
