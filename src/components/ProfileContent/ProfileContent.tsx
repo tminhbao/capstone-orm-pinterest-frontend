@@ -1,6 +1,6 @@
 import { Avatar, Col, Row } from "antd";
 import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Form, Input } from "antd";
 
 type Props = {};
 

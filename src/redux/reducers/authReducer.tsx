@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { USER_LOGIN } from "../../constants";
 
 const initialState = {
-  userLogin: localStorage.getItem(USER_LOGIN)
-    ? JSON.parse(localStorage.getItem(USER_LOGIN))
-    : null,
+  userLogin: JSON.parse(localStorage.getItem(USER_LOGIN) || "{}") || null,
 };
 
 const authReducer = createSlice({

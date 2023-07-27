@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { data } from "../../constants/data";
-import { Image, Row, Col } from "antd";
+import { Image } from "antd";
 import "./HomeLayout.css";
 import HomeSlider from "../HomeSlider/HomeSlider";
 

@@ -1,9 +1,8 @@
 import { Avatar, Col, Modal, Row } from "antd";
 import React from "react";
-import type { UploadProps } from "antd";
-import { message, Upload } from "antd";
+import { Upload } from "antd";
 import { BsFillPlusCircleFill } from "react-icons/bs";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 
 const { Dragger } = Upload;
 

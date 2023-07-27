@@ -1,4 +1,4 @@
-import { Col, Collapse, Image, Row } from "antd";
+import { Col, Image, Row } from "antd";
 import { FiMoreHorizontal, FiUpload, FiLink } from "react-icons/fi";
 import React from "react";
 import Comment from "../../components/Comment/Comment";
