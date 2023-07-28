@@ -1,6 +1,10 @@
 import { Button, Form, Input, Modal, Row } from "antd";
 import React from "react";
 import { BsPinterest } from "react-icons/bs";
+import { UserRegisterModel } from "../../../types";
+import { DispatchType } from "../../../redux/configStore";
+import { useDispatch } from "react-redux";
+import { registerApi } from "../../../redux/reducers/authReducer";
 
 type Props = {
   isModalRegisterOpen: any;
@@ -9,8 +13,11 @@ type Props = {
 
 const RegisterModal = (props: Props) => {
   const { isModalRegisterOpen, handleCancelRegister } = props;
-  const onFinishRegister = (values: any) => {
+  const dispatch: DispatchType = useDispatch();
+  const onFinishRegister = (values: UserRegisterModel) => {
+    dispatch(registerApi(values));
     console.log("Success:", values);
+    handleCancelRegister();
   };
   const onFinishRegisterFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -76,8 +83,8 @@ const RegisterModal = (props: Props) => {
           </Form.Item>
 
           <Form.Item
-            label="name"
-            name="name"
+            label="full name"
+            name="full_name"
             rules={[
               {
                 required: true,
@@ -88,8 +95,8 @@ const RegisterModal = (props: Props) => {
             <Input placeholder="Họ tên" style={{ minHeight: "48px" }} />
           </Form.Item>
           <Form.Item
-            label="age"
-            name="age"
+            label="birth date"
+            name="birth_date"
             rules={[
               {
                 required: true,

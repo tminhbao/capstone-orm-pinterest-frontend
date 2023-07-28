@@ -1,6 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { USER_LOGIN } from "../../constants";
-import { UserLoginModel, UserLoginResult } from "../../types";
+import {
+  UserLoginModel,
+  UserLoginResult,
+  UserRegisterModel,
+} from "../../types";
 import { DispatchType } from "../configStore";
 import { http } from "../../utils/config";
 import { openNotificationWithIcon } from "../../utils/notification";
@@ -30,7 +34,18 @@ export const loginApi = (userLogin: UserLoginModel) => {
       dispatch(loginAction(result.data));
       localStorage.setItem(USER_LOGIN, JSON.stringify(result.data));
     } catch (error: any) {
-      openNotificationWithIcon("error", error);
+      console.log(error);
+    }
+  };
+};
+
+export const registerApi = (userRegister: UserRegisterModel) => {
+  return async (dispatch: DispatchType) => {
+    try {
+      const result = await http.post(`/sign-up`, userRegister);
+      openNotificationWithIcon("success", result?.data);
+    } catch (error) {
+      console.log(error);
     }
   };
 };
