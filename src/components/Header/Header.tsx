@@ -9,11 +9,16 @@ import { AiFillBell, AiFillMessage, AiOutlinePlusCircle } from "react-icons/ai";
 import CreateImageModal from "../Modal/CreateImageModal/CreateImageModal";
 import LoginModal from "../Modal/LoginModal/LoginModal";
 import RegisterModal from "../Modal/RegisterModal/RegisterModal";
+import { useSelector, useDispatch } from "react-redux";
+import { DispatchType, RootState } from "../../redux/configStore";
+import { USER_LOGIN } from "../../constants";
+import { loginAction, loginApi } from "../../redux/reducers/authReducer";
 
 type Props = {};
 
 const Header = (props: Props) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const { userLogin } = useSelector((state: RootState) => state.authReducer);
+  const dispatch: DispatchType = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
@@ -72,7 +77,17 @@ const Header = (props: Props) => {
     },
     {
       key: "3",
-      label: <p className="text-danger mb-0"> Logout</p>,
+      label: (
+        <p
+          className="text-danger mb-0"
+          onClick={() => {
+            localStorage.removeItem(USER_LOGIN);
+            dispatch(loginAction({ accessToken: null, expiresIn: null }));
+          }}
+        >
+          Logout
+        </p>
+      ),
     },
   ];
 
@@ -96,7 +111,7 @@ const Header = (props: Props) => {
             </div>
           </Col>
           <Col xs={7}>
-            {isLogin ? (
+            {userLogin.accessToken ? (
               <nav className="header__menu">
                 <a onClick={(e: any) => setIsModalCreateOpen(true)}>
                   <AiOutlinePlusCircle className="fs-3" />

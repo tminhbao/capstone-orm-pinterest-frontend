@@ -1,6 +1,6 @@
 import axios from "axios";
 import { history } from "..";
-import { ACCESS_TOKEN, DOMAIN } from "../constants";
+import { ACCESS_TOKEN, DOMAIN, USER_LOGIN } from "../constants";
 import { notification } from "antd";
 import { openNotificationWithIcon } from "./notification";
 
@@ -13,7 +13,9 @@ http.interceptors.request.use(
   (config: any) => {
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+      Authorization: `Bearer ${
+        JSON.parse(localStorage.getItem(USER_LOGIN) || "{}").accessToken
+      }`,
     };
     return config;
   },

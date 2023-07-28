@@ -1,10 +1,10 @@
 import { Button, Form, Input, Modal, Row } from "antd";
 import React from "react";
 import { BsPinterest } from "react-icons/bs";
-import { useDispatch } from "react-redux";
 import { DispatchType } from "../../../redux/configStore";
 import { loginApi } from "../../../redux/reducers/authReducer";
 import { openNotificationWithIcon } from "../../../utils/notification";
+import { useDispatch } from "react-redux";
 
 type Props = {
   isModalOpen: any;
@@ -16,8 +16,9 @@ const LoginModal = (props: Props) => {
   const { isModalOpen, handleCancel } = props;
   const onFinish = async (values: any) => {
     try {
-      const result = await dispatch(loginApi(values));
-      console.log(result);
+      await dispatch(loginApi(values));
+      openNotificationWithIcon("success", "Đăng nhập thành công");
+      handleCancel();
     } catch (error: any) {
       openNotificationWithIcon("error", error);
     }

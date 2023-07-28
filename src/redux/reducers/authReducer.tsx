@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ACCESS_TOKEN } from "../../constants";
+import { USER_LOGIN } from "../../constants";
 import { UserLoginModel, UserLoginResult } from "../../types";
 import { DispatchType } from "../configStore";
 import { http } from "../../utils/config";
 import { openNotificationWithIcon } from "../../utils/notification";
 
 const initialState = {
-  userLogin: JSON.parse(localStorage.getItem(ACCESS_TOKEN) || "{}") || null,
+  userLogin: JSON.parse(localStorage.getItem(USER_LOGIN) || "{}") || null,
 };
 
 const authReducer = createSlice({
@@ -28,6 +28,7 @@ export const loginApi = (userLogin: UserLoginModel) => {
     try {
       const result = await http.post(`/sign-in`, userLogin);
       dispatch(loginAction(result.data));
+      localStorage.setItem(USER_LOGIN, JSON.stringify(result.data));
     } catch (error: any) {
       openNotificationWithIcon("error", error);
     }
