@@ -20,7 +20,8 @@ const LoginModal = (props: Props) => {
       openNotificationWithIcon("success", "Đăng nhập thành công");
       handleCancel();
     } catch (error: any) {
-      openNotificationWithIcon("error", error);
+      // openNotificationWithIcon("error", error);
+      console.log(error);
     }
   };
   const onFinishFailed = (errorInfo: any) => {
@@ -65,6 +66,7 @@ const LoginModal = (props: Props) => {
             rules={[
               {
                 required: true,
+                type: "email",
                 message: "Please input your email!",
               },
             ]}
@@ -78,7 +80,8 @@ const LoginModal = (props: Props) => {
             rules={[
               {
                 required: true,
-                message: "Please input your password!",
+                message: "Password must be at least 8 characters!",
+                min: 8,
               },
             ]}
           >
