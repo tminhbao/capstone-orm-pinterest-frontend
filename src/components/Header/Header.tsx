@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./Header.css";
-import { Row, Col, Modal, Form, Input, Button, Dropdown, Avatar } from "antd";
+import { Row, Col, Dropdown, Avatar } from "antd";
 import type { MenuProps } from "antd";
 import { BsPinterest } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import { AiFillBell, AiFillMessage, AiOutlinePlusCircle } from "react-icons/ai";
 import CreateImageModal from "../Modal/CreateImageModal/CreateImageModal";
+import LoginModal from "../Modal/LoginModal/LoginModal";
+import RegisterModal from "../Modal/RegisterModal/RegisterModal";
 
 type Props = {};
 
@@ -16,6 +18,7 @@ const Header = (props: Props) => {
   const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
 
+  // MODAL LOGIN
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -24,6 +27,7 @@ const Header = (props: Props) => {
     setIsModalOpen(false);
   };
 
+  // MODAL REGISTER
   const showModalRegister = () => {
     setIsModalRegisterOpen(true);
   };
@@ -32,33 +36,13 @@ const Header = (props: Props) => {
     setIsModalRegisterOpen(false);
   };
 
+  // MODAL CREATE
   const showModalCreate = () => {
     setIsModalCreateOpen(true);
   };
 
   const handleCancelCreate = () => {
     setIsModalCreateOpen(false);
-  };
-
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const onFinishRegister = (values: any) => {
-    console.log("Success:", values);
-  };
-  const onFinishRegisterFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const onFinishCreate = (values: any) => {
-    console.log("Success:", values);
-  };
-  const onFinishCreateFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
 
   const items: MenuProps["items"] = [
@@ -148,175 +132,12 @@ const Header = (props: Props) => {
           </Col>
         </Row>
       </header>
-      <Modal
-        className="login__modal"
-        // title="Chào mừng bạn đến với Pinterest"
-        open={isModalOpen}
-        // onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <Row className="d-flex justify-content-center">
-          <BsPinterest className="header__icon fs-1" />
-        </Row>
-        <Row className="d-flex justify-content-center text-center">
-          <p
-            style={{
-              fontSize: "32px",
-              fontWeight: 600,
-              letterSpacing: " -1.2px",
-            }}
-          >
-            Chào mừng bạn đến với Pinterest
-          </p>
-        </Row>
-        <Row>
-          <Form
-            name="basic"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-            layout="vertical"
-            className="w-50 m-auto"
-            size="middle"
-          >
-            <Form.Item
-              label="email"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your email!",
-                },
-              ]}
-            >
-              <Input placeholder="email" style={{ minHeight: "48px" }} />
-            </Form.Item>
+      <LoginModal isModalOpen={isModalOpen} handleCancel={handleCancel} />
 
-            <Form.Item
-              label="password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-            >
-              <Input.Password
-                placeholder="Mật khẩu"
-                style={{ minHeight: "48px" }}
-              />
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="w-100 login-btn"
-              >
-                Đăng nhập
-              </Button>
-            </Form.Item>
-          </Form>
-        </Row>
-      </Modal>
-      <Modal
-        className="register__modal"
-        open={isModalRegisterOpen}
-        onCancel={handleCancelRegister}
-        footer={null}
-      >
-        <Row className="d-flex justify-content-center">
-          <BsPinterest className="header__icon fs-1" />
-        </Row>
-        <Row className="d-flex justify-content-center text-center">
-          <p
-            style={{
-              fontSize: "32px",
-              fontWeight: 600,
-              letterSpacing: " -1.2px",
-            }}
-          >
-            Chào mừng bạn đến với Pinterest
-          </p>
-        </Row>
-        <Row>
-          <Form
-            name="basic"
-            onFinish={onFinishRegister}
-            onFinishFailed={onFinishRegisterFailed}
-            autoComplete="off"
-            layout="vertical"
-            className="w-50 m-auto"
-            size="middle"
-          >
-            <Form.Item
-              label="email"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your email!",
-                },
-              ]}
-            >
-              <Input placeholder="email" style={{ minHeight: "48px" }} />
-            </Form.Item>
-
-            <Form.Item
-              label="password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-            >
-              <Input.Password
-                placeholder="Mật khẩu"
-                style={{ minHeight: "48px" }}
-              />
-            </Form.Item>
-
-            <Form.Item
-              label="name"
-              name="name"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your name!",
-                },
-              ]}
-            >
-              <Input placeholder="Họ tên" style={{ minHeight: "48px" }} />
-            </Form.Item>
-            <Form.Item
-              label="age"
-              name="age"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your age!",
-                },
-              ]}
-            >
-              <Input placeholder="Tuổi" style={{ minHeight: "48px" }} />
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="w-100 login-btn"
-              >
-                Đăng ký
-              </Button>
-            </Form.Item>
-          </Form>
-        </Row>
-      </Modal>
+      <RegisterModal
+        isModalRegisterOpen={isModalRegisterOpen}
+        handleCancelRegister={handleCancelRegister}
+      />
 
       <CreateImageModal
         open={isModalCreateOpen}

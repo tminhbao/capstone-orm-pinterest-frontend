@@ -12,12 +12,12 @@ const HomeLayout = (props: Props) => {
   const colashImages = (link: string) => {
     return (
       <>
-        <img src={link} alt="colash-image" />
-        <img src={link} alt="colash-image" />
-        <img src={link} alt="colash-image" />
-        <img src={link} alt="colash-image" />
-        <img src={link} alt="colash-image" />
-        <img src={link} alt="colash-image" />
+        <img src={link} alt="colash" />
+        <img src={link} alt="colash" />
+        <img src={link} alt="colash" />
+        <img src={link} alt="colash" />
+        <img src={link} alt="colash" />
+        <img src={link} alt="colash" />
       </>
     );
   };

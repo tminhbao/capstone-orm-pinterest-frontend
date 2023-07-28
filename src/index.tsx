@@ -14,6 +14,8 @@ import HomeTemplate from "./components/templates/HomeTemplate";
 import ImageDetail from "./pages/ImageDetail/ImageDetail";
 import MyImage from "./pages/MyImage/MyImage";
 import Profile from "./pages/Profile/Profile";
+import { Provider } from "react-redux";
+import { store } from "./redux/configStore";
 
 export const history: any = createBrowserHistory();
 
@@ -22,16 +24,18 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <HistoryRouter history={history}>
-      <Routes>
-        <Route path="/" element={<HomeTemplate />}>
-          <Route path="/" element={<HomeLayout />} />
-          <Route path="/image/:imageId" element={<ImageDetail />} />
-          <Route path="/my-images" element={<MyImage />} />
-          <Route path="/profile" element={<Profile />} />
-        </Route>
-      </Routes>
-    </HistoryRouter>
+    <Provider store={store}>
+      <HistoryRouter history={history}>
+        <Routes>
+          <Route path="/" element={<HomeTemplate />}>
+            <Route path="/" element={<HomeLayout />} />
+            <Route path="/image/:imageId" element={<ImageDetail />} />
+            <Route path="/my-images" element={<MyImage />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+        </Routes>
+      </HistoryRouter>
+    </Provider>
   </React.StrictMode>
 );
 
