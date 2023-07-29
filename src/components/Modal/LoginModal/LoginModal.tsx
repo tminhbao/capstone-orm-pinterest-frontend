@@ -81,7 +81,7 @@ const LoginModal = (props: Props) => {
               {
                 required: true,
                 message: "Password must be at least 8 characters!",
-                min: 6,
+                min: 8,
               },
             ]}
           >

@@ -73,6 +73,7 @@ const RegisterModal = (props: Props) => {
               {
                 required: true,
                 message: "Please input your password!",
+                min: 8,
               },
             ]}
           >

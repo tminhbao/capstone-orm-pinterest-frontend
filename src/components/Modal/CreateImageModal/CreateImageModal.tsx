@@ -76,7 +76,7 @@ const CreateImageModal = (props: Props) => {
             </Form.Item>
             <Form.Item
               label="URL"
-              name="password"
+              name="url"
               rules={[
                 { required: true, message: "Please input your password!" },
               ]}

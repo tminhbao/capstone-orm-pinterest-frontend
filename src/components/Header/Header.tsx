@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import { Row, Col, Dropdown, Avatar } from "antd";
 import type { MenuProps } from "antd";
@@ -12,7 +12,8 @@ import RegisterModal from "../Modal/RegisterModal/RegisterModal";
 import { useSelector, useDispatch } from "react-redux";
 import { DispatchType, RootState } from "../../redux/configStore";
 import { USER_LOGIN } from "../../constants";
-import { loginAction, loginApi } from "../../redux/reducers/authReducer";
+import { loginAction } from "../../redux/reducers/authReducer";
+import { openNotificationWithIcon } from "../../utils/notification";
 
 type Props = {};
 
@@ -22,6 +23,31 @@ const Header = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalRegisterOpen, setIsModalRegisterOpen] = useState(false);
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
+
+  const isTokenExpired = (token: string) => {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    const { exp } = JSON.parse(jsonPayload);
+    const expired = Date.now() >= exp * 1000;
+    return expired;
+  };
+
+  useEffect(() => {
+    console.log(isTokenExpired(userLogin?.accessToken));
+    if (isTokenExpired(userLogin?.accessToken)) {
+      dispatch(loginAction({ accessToken: null, expiresIn: null }));
+      openNotificationWithIcon("error", "Xin mời đăng nhập lại");
+    }
+  }, []);
 
   // MODAL LOGIN
   const showModal = () => {
