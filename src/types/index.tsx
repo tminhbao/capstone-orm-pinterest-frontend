@@ -17,3 +17,16 @@ export interface UserRegisterModel {
   birth_date: string;
   avatar: string | null;
 }
+
+export interface UserInfoModel {
+  user_id: string;
+  full_name: string;
+  email: string;
+  password: string;
+  avatar: string | null;
+  birthdate: string;
+}
+
+export interface UserState {
+  userInfo: UserInfoModel | any;
+}

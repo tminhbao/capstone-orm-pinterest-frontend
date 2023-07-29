@@ -54,25 +54,17 @@ const Header = (props: Props) => {
     {
       key: "1",
       label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
+        <NavLink to={"/profile"} className="text-decoration-none">
           My Profile
-        </a>
+        </NavLink>
       ),
     },
     {
       key: "2",
       label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.aliyun.com"
-        >
-          My Image
-        </a>
+        <NavLink to={"/my-images"} className="text-decoration-none">
+          My Images
+        </NavLink>
       ),
     },
     {

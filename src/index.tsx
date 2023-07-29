@@ -16,12 +16,16 @@ import MyImage from "./pages/MyImage/MyImage";
 import Profile from "./pages/Profile/Profile";
 import { Provider } from "react-redux";
 import { store } from "./redux/configStore";
+import { USER_LOGIN } from "./constants";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 export const history: any = createBrowserHistory();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+const isLogined = JSON.parse(localStorage.getItem(USER_LOGIN) || "{}");
 root.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -31,7 +35,14 @@ root.render(
             <Route path="/" element={<HomeLayout />} />
             <Route path="/image/:imageId" element={<ImageDetail />} />
             <Route path="/my-images" element={<MyImage />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute isLogined={isLogined}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Routes>
       </HistoryRouter>

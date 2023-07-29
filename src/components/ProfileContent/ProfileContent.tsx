@@ -1,10 +1,18 @@
 import { Avatar, Col, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Input } from "antd";
+import { DispatchType, RootState } from "../../redux/configStore";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserInfoApi } from "../../redux/reducers/userReducer";
 
 type Props = {};
 
 const ProfileContent = (props: Props) => {
+  const { userInfo } = useSelector((state: RootState) => state.userReducer);
+  const dispatch: DispatchType = useDispatch();
+  useEffect(() => {
+    dispatch(getUserInfoApi());
+  }, []);
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
@@ -16,12 +24,12 @@ const ProfileContent = (props: Props) => {
     <div>
       <Row>
         <Col xs={24}>
-          <p>Hồ sơ công khai</p>
+          <p>Hồ sơ công khai {userInfo?.full_name}</p>
         </Col>
       </Row>
       <Row>
         <Col xs={24}>
-          <Avatar className="fs-3 me-2" />
+          <Avatar className="fs-3 me-2" src={userInfo?.avatar} />
           <button className="register-btn fw-bold">Thay đổi</button>
         </Col>
       </Row>
@@ -43,7 +51,7 @@ const ProfileContent = (props: Props) => {
                   { required: true, message: "Please input your username!" },
                 ]}
               >
-                <Input />
+                <Input value={userInfo?.email} />
               </Form.Item>
             </Col>
             <Col xs={12}>
@@ -65,7 +73,8 @@ const ProfileContent = (props: Props) => {
                   { required: true, message: "Please input your password!" },
                 ]}
               >
-                <Input.Password />
+                <Input value={userInfo?.full_name} />
+                <p>{userInfo?.full_name}</p>
               </Form.Item>
             </Col>
             <Col xs={12}>
@@ -76,7 +85,7 @@ const ProfileContent = (props: Props) => {
                   { required: true, message: "Please input your password!" },
                 ]}
               >
-                <Input.Password />
+                <Input defaultValue={userInfo?.birth_date} />
               </Form.Item>
             </Col>
             <Col xs={12}>
