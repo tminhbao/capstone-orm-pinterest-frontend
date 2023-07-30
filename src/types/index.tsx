@@ -27,6 +27,11 @@ export interface UserInfoModel {
   birthdate: string;
 }
 
+export interface UserUpdateModel {
+  full_name?: string | null;
+  birth_date?: string | null;
+}
+
 export interface UserState {
   userInfo: UserInfoModel | any;
 }

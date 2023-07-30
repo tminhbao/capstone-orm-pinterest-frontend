@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { UserInfoModel, UserState } from "../../types";
+import { UserInfoModel, UserState, UserUpdateModel } from "../../types";
 import { DispatchType } from "../configStore";
 import { http } from "../../utils/config";
 
@@ -29,6 +29,16 @@ export const getUserInfoApi = () => {
     try {
       const result = await http.get(`/user/info`);
       dispatch(getUserInfoAction(result.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateUserInfoApi = (userUpdate: UserUpdateModel) => {
+  return async (dispatch: DispatchType) => {
+    try {
+      await http.put("/user/info", userUpdate);
     } catch (error) {
       console.log(error);
     }

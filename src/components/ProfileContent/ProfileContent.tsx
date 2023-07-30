@@ -1,24 +1,45 @@
-import { Avatar, Col, Row, Spin } from "antd";
-import React, { useEffect } from "react";
+import { Avatar, Col, DatePicker, DatePickerProps, Row, Spin } from "antd";
+import React, { useEffect, useState } from "react";
 import { Form, Input } from "antd";
 import { DispatchType, RootState } from "../../redux/configStore";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserInfoApi } from "../../redux/reducers/userReducer";
+import {
+  getUserInfoApi,
+  updateUserInfoApi,
+} from "../../redux/reducers/userReducer";
+import { UserUpdateModel } from "../../types";
+import { openNotificationWithIcon } from "../../utils/notification";
+import dayjs from "dayjs";
 
 type Props = {};
 
 const ProfileContent = (props: Props) => {
   const { userInfo } = useSelector((state: RootState) => state.userReducer);
+  const [birthDate, setBirthDate] = useState("");
   const dispatch: DispatchType = useDispatch();
+
   useEffect(() => {
     dispatch(getUserInfoApi());
   }, [dispatch]);
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+
+  const onFinish = async (values: UserUpdateModel) => {
+    let { full_name } = values;
+    if (full_name === undefined) full_name = userInfo?.full_name;
+    const birth_date = birthDate || userInfo?.birth_date.slice(0, 10);
+    await dispatch(updateUserInfoApi({ full_name, birth_date }));
+    openNotificationWithIcon("success", "Cập nhật thông tin thành công");
+    dispatch(getUserInfoApi());
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
+  };
+
+  const handleSelectBirthDay: DatePickerProps["onChange"] = (
+    date,
+    dateString
+  ) => {
+    setBirthDate(dateString);
   };
 
   if (userInfo)
@@ -46,28 +67,16 @@ const ProfileContent = (props: Props) => {
           >
             <Row gutter={10}>
               <Col xs={12}>
-                <Form.Item
-                  label="email"
-                  name="email"
-                  rules={[
-                    { required: true, message: "Please input your email!" },
-                  ]}
-                >
+                <Form.Item label="email" name="email">
                   {userInfo?.email ? (
-                    <Input defaultValue={userInfo?.email} />
+                    <Input defaultValue={userInfo?.email} disabled />
                   ) : (
                     <Spin />
                   )}
                 </Form.Item>
               </Col>
               <Col xs={12}>
-                <Form.Item
-                  label="Fullname"
-                  name="full_name"
-                  rules={[
-                    { required: true, message: "Please input your fullname!" },
-                  ]}
-                >
+                <Form.Item label="Fullname" name="full_name">
                   {userInfo?.full_name ? (
                     <Input defaultValue={userInfo?.full_name} />
                   ) : (
@@ -76,15 +85,15 @@ const ProfileContent = (props: Props) => {
                 </Form.Item>
               </Col>
               <Col xs={12}>
-                <Form.Item
-                  label="birthday"
-                  name="birth_date"
-                  rules={[
-                    { required: true, message: "Please input your birthday!" },
-                  ]}
-                >
+                <Form.Item label="birthday" name="birth_date">
                   {userInfo?.birth_date ? (
-                    <Input defaultValue={userInfo?.birth_date.slice(0, 10)} />
+                    <DatePicker
+                      onChange={handleSelectBirthDay}
+                      defaultValue={dayjs(
+                        userInfo?.birth_date.slice(0, 10),
+                        "YYYY-MM-DD"
+                      )}
+                    />
                   ) : (
                     <Spin />
                   )}

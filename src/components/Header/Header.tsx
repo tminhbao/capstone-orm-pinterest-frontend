@@ -129,7 +129,8 @@ const Header = (props: Props) => {
             </div>
           </Col>
           <Col xs={7}>
-            {userLogin.accessToken ? (
+            {userLogin.accessToken &&
+            !isTokenExpired(userLogin?.accessToken) ? (
               <nav className="header__menu">
                 <a onClick={(e: any) => setIsModalCreateOpen(true)}>
                   <AiOutlinePlusCircle className="fs-3" />
